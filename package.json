@@ -1,0 +1,28 @@
+{
+  "name": "lessons",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "rimraf ./public/scripts && tsc --watch",
+    "open": "http-server public",
+    "build": "rimraf ./public/scripts && tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xuxicheta/geekbrains-typescript.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xuxicheta/geekbrains-typescript/issues"
+  },
+  "homepage": "https://github.com/xuxicheta/geekbrains-typescript#readme",
+  "devDependencies": {
+    "typescript": "^4.4.3",
+    "http-server": "^13.0.1",
+    "rimraf": "^3.0.2"
+  },
+  "dependencies": {}
+}
