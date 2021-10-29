@@ -1,6 +1,13 @@
 import { renderBlock } from './lib.js';
 import { formatDate, getLastDayOfNextMonth, shiftDate } from './date-utils.js';
 
+export interface SearchFormData {
+  city: string;
+  checkin: Date;
+  checkout: Date;
+  price: number;
+}
+
 export function renderSearchFormBlock(
   dateArrival?: Date,
   dateDeparture?: Date
@@ -41,7 +48,7 @@ export function renderSearchFormBlock(
             <input id="max-price" type="text" value="" name="price" class="max-price" />
           </div>
           <div>
-            <div><button>Найти</button></div>
+            <div><button class="button">Найти</button></div>
           </div>
         </div>
       </fieldset>
@@ -49,3 +56,26 @@ export function renderSearchFormBlock(
     `
   )
 }
+
+function searchItem (value: SearchFormData): void {
+  console.log(value)
+}
+
+const button = document.querySelector('.button')
+
+button.addEventListener('click', (e) => {
+  const city = document.getElementById('city')
+  const checkin = document.getElementById('check-in-date')
+  const checkout = document.getElementById('check-out-date')
+  const price = document.getElementById('max-price')
+  
+  searchItem ({
+    'city': city.getAttribute('value'),
+    'checkin': new Date (checkin.getAttribute('value')),
+    'checkout': new Date (checkout.getAttribute('value')),
+    'price': parseInt(price.getAttribute('value'))
+  })
+  return searchItem;
+})
+
+
