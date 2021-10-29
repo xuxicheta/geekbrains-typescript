@@ -1,11 +1,11 @@
 import { renderBlock } from './lib.js'
 
 export function renderUserBlock (userName: string, avatarSrc: string, favoriteItemsAmount: number): void {
-  const favoritesCaption = favoriteItemsAmount 
+  const favoritesCaption = favoriteItemsAmount < 1
     ? `Избранных: ${favoriteItemsAmount}`
     : 'ничего нет';
 
-  const heartIcon = favoriteItemsAmount 
+  const heartIcon = favoriteItemsAmount < 1
     ? 'heart-filled' 
     : 'heart-red';
 
