@@ -164,6 +164,7 @@ ul.results-list {
 .result-img-container {
     position: relative;
     margin-right: 16px;
+    width: 20%;
 }
 .result-img {
     width: 245px;
@@ -176,16 +177,35 @@ ul.results-list {
     position: absolute;
     left: 4px;
     top: 4px;
-    background-image: url(../img/heart.png);
+    background-image: url(../img/heart-red.png);
     background-repeat: no-repeat;
     background-size: 100%;
     cursor: pointer;
+}
+.heart {
+    display: block;
+    margin-left: 5px;
+    width: 10px;
+    height: 10px;
+    background-image: url(../img/heart-filled.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+.heart2 {
+    display: block;
+    margin-left: 5px;
+    width: 10px;
+    height: 10px;
+    background-image: url(../img/heart-red.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 .favorites.active {
     background-image: url(../img/heart-filled.png);
 }
 .result-info {
     position: relative;
+    width: 80%;
 }
 .result-info--header {
     display: flex;

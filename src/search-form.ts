@@ -1,7 +1,15 @@
-import { renderBlock } from './lib.js';
+import { renderBlock, clearBlockOreClouseToasts } from './lib.js';
+import bucingElement from './bucing-element.js'
 import { formatDate, getLastDayOfNextMonth, shiftDate } from './date-utils.js';
+import { renderSearchResultsBlock, renderSerchResults, renderEmptyOrErrorSearchBlock } from './search-results.js';
+
 
 export function renderSearchFormBlock(dateArrival?: Date, dateDeparture?: Date): void {
+  const STATE: state = {
+    response: [],
+    renderFilter: null,
+    emptyList: null
+  }
 
   dateArrival = dateArrival || shiftDate(new Date(), 1)
   const arrival = formatDate(dateArrival);
@@ -21,7 +29,23 @@ export function renderSearchFormBlock(dateArrival?: Date, dateDeparture?: Date):
     staticformDateDeparture: string
     staticcity: string
   }
+  interface state {
+    response: Array<responsElement>
+    renderFilter: boolean
+    emptyList: boolean
+  }
 
+  interface responsElement {
+    bookedDates: Array<string>;
+    image: string;
+    name: string;
+    price: number;
+    remoteness: number;
+    description: string;
+    id: number;
+  }
+
+  clearBlockOreClouseToasts('search-form-block');
   renderBlock(
     'search-form-block',
     `
@@ -90,6 +114,19 @@ export function renderSearchFormBlock(dateArrival?: Date, dateDeparture?: Date):
     }
   }
 
+  price.addEventListener('input', () => {
+    searchFormData(staticSrechData)
+  })
+  formDateDeparture.addEventListener('input', () => {
+    searchFormData(staticSrechData)
+  })
+  formDateArrival.addEventListener('input', () => {
+    searchFormData(staticSrechData)
+  })
+  city.addEventListener('input', () => {
+    searchFormData(staticSrechData)
+  })
+
 
   function searchFormData(staticDataSerch: staticSrechData) {
     const { staticcity, staticformDateArrival, staticformDateDeparture, staticprice } = staticDataSerch
@@ -117,10 +154,44 @@ export function renderSearchFormBlock(dateArrival?: Date, dateDeparture?: Date):
     return serchData;
   }
 
-  function search(serchData: serchData): never {
+  function search(serchData: serchData): void {
     const { price, dateIn, dateOut, city } = serchData
     console.log('serch', price, dateIn, dateOut, city);
-    throw 0
+    fetch('http://localhost:3000/places')
+      .then(response => response.json())
+      .then(r => {
+        if (r && !STATE.response.length) {
+          console.log('r', r);
+          for (const el in r) {
+            if (Object.prototype.hasOwnProperty.call(r, el)) {
+              const element: responsElement = r[el];
+              STATE.response.unshift(element);
+            }
+          }
+        }
+        if (STATE.response && !STATE.renderFilter) {
+          STATE.renderFilter = true
+          renderSearchResultsBlock()
+        }
+        if (price > 0 && STATE.response.length) {
+          clearBlockOreClouseToasts('results-list')
+          if (STATE.emptyList) {
+            clearBlockOreClouseToasts('results-list')
+          }
+          STATE.response.forEach(el => {
+            renderSerchResults(el)
+          })
+          STATE.emptyList = false;
+          bucingElement()
+        }
+
+        if (price === 0) {
+          STATE.emptyList = true;
+          clearBlockOreClouseToasts('results-list')
+          renderEmptyOrErrorSearchBlock('Ничего не найдено')
+        }
+
+      });
   }
 
 }

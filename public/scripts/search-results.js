@@ -1,46 +1,27 @@
-import { renderBlock, clearBlockOreClouseToasts } from './lib.js'
-
-interface renderSerchResultsElement {
-  name: string;
-  price: number;
-  remoteness: number;
-  description: string;
-  id: number;
-}
-
-export function renderSearchStubBlock(): void {
-  clearBlockOreClouseToasts('search-results-block');
-  renderBlock(
-    'search-results-block',
-    `
+import { renderBlock, clearBlockOreClouseToasts } from './lib.js';
+export function renderSearchStubBlock() {
+    clearBlockOreClouseToasts('search-results-block');
+    renderBlock('search-results-block', `
     <div class="before-results-block" id="before-results-block">
       <img src="img/start-search.png" />
       <p>Чтобы начать поиск, заполните форму и&nbsp;нажмите "Найти"</p>
     </div>
-    `
-  )
+    `);
 }
-
-export function renderEmptyOrErrorSearchBlock(reasonMessage: string): void {
-  clearBlockOreClouseToasts('results-list');
-  renderBlock(
-    'results-list',
-    `
+export function renderEmptyOrErrorSearchBlock(reasonMessage) {
+    clearBlockOreClouseToasts('results-list');
+    renderBlock('results-list', `
     <li class="result">
       <div class="no-results-block">
         <img src="img/no-results.png" />
         <p>${reasonMessage}</p>
       </div>
     </li>
-    `
-  )
+    `);
 }
-
-export function renderSearchResultsBlock(): void {
-  clearBlockOreClouseToasts('search-results-block');
-  renderBlock(
-    'search-results-block',
-    `
+export function renderSearchResultsBlock() {
+    clearBlockOreClouseToasts('search-results-block');
+    renderBlock('search-results-block', `
     <div class="search-results-header">
         <p>Результаты поиска</p>
         <div class="search-results-filter">
@@ -54,15 +35,11 @@ export function renderSearchResultsBlock(): void {
     </div>
     <ul class="results-list" id="results-list">
     </ul>
-    `
-  )
+    `);
 }
-
-export function renderSerchResults(element: renderSerchResultsElement): void {
-  const { id, name, price, remoteness, description } = element;
-  renderBlock(
-    'results-list',
-    `
+export function renderSerchResults(element) {
+    const { id, name, price, remoteness, description } = element;
+    renderBlock('results-list', `
     <li class="result">
     <div class="result-container">
       <div class="result-img-container">
@@ -84,5 +61,5 @@ export function renderSerchResults(element: renderSerchResultsElement): void {
       </div>
     </div>
   </li>
-  `)
+  `);
 }

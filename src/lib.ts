@@ -1,6 +1,6 @@
 export function renderBlock(elementId: string, html: string): void {
   const element = document.getElementById(elementId)
-  element.innerHTML = html
+  element.insertAdjacentHTML('afterbegin', html)
 }
 
 export interface RenderMessage {
@@ -31,9 +31,10 @@ export function renderToast(message?: RenderMessage, action?: RenderAction): voi
     messageText
   )
 
-  const button = document.getElementById('toast-main-action')
+  const button: HTMLElement = document.getElementById('toast-main-action');
+
   if (button != null) {
-    button.onclick = function () {
+    button.onclick = () => {
       if (action != null && action.handler != null) {
         action.handler()
       }
@@ -41,3 +42,9 @@ export function renderToast(message?: RenderMessage, action?: RenderAction): voi
     }
   }
 }
+
+export function clearBlockOreClouseToasts(elementId: string): void {
+  const element = document.getElementById(elementId)
+  element.innerHTML = ''
+}
+
