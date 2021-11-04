@@ -3,40 +3,50 @@ import { renderUserBlock } from './user.js'
 
 export default () => {
   const like: NodeListOf<Element> = document.querySelectorAll('.favorites');
+  const favorites = localdata().userFavoriteItemsAmount;
+  const favoritesItems: Array<number> = favorites;
 
-  let favoritesItems: Array<number> = [];
-  like.forEach((el) => {
-    const btn: HTMLElement = document.getElementById(el.id);
+  like.forEach((likeBTN) => {
+    const idlikeBTN: number = +likeBTN.id;
 
-    localdata().userFavoriteItemsAmount.forEach(element => {
-      if (Number(el.id) === element) {
-        btn.classList.add('active')
-      }
-    })
+    function addToStorage(favoritesItems: Array<number>, favorites: Array<number>, idlikeBTN: number): void {
+      favoritesItems.push(idlikeBTN)
+      localStorage.setItem('userFavoriteItemsAmount', JSON.stringify(favoritesItems));
+      const localStorageUpdate = localdata();
+      renderUserBlock(localStorageUpdate.userName, localStorageUpdate.userAvatar, localStorageUpdate.userFavoriteItemsAmount)
+    }
 
-    el.addEventListener('click', (event) => {
-      const btn: HTMLElement = document.getElementById((<HTMLElement>event.target).id);
-      btn.classList.toggle('active')
+    function removeToStorage(favoritesItems: Array<number>, idlikeBTN: number): void {
+      favoritesItems.forEach((fi, idx) => {
+        if (fi === idlikeBTN) {
+          favoritesItems.splice(idx, 1);
+        }
+      })
+      localStorage.setItem('userFavoriteItemsAmount', JSON.stringify(favoritesItems));
+      const localStorageUpdate = localdata();
+      renderUserBlock(localStorageUpdate.userName, localStorageUpdate.userAvatar, localStorageUpdate.userFavoriteItemsAmount)
+    }
 
 
-      if (btn.classList[1] === 'active') {
-        favoritesItems = localdata().userFavoriteItemsAmount;
-        favoritesItems.push(Number((<HTMLElement>event.target).id))
-        localStorage.setItem('userFavoriteItemsAmount', JSON.stringify(favoritesItems));
-        const localStorageUpdate = localdata();
-        renderUserBlock(localStorageUpdate.userName, localStorageUpdate.userAvatar, localStorageUpdate.userFavoriteItemsAmount)
+    if (favorites) {
+      favorites.forEach(element => {
+        if (idlikeBTN === element) {
+          likeBTN.classList.add('active')
+        }
+      })
+
+    }
+
+    likeBTN.addEventListener('click', () => {
+      likeBTN.classList.toggle('active')
+
+      if (likeBTN.classList[1] === 'active') {
+        addToStorage(favoritesItems, favorites, idlikeBTN)
       } else {
-        favoritesItems.forEach((fi, idx) => {
-          if (fi === +(<HTMLElement>event.target).id) {
-            favoritesItems.splice(idx, 1);
-          }
-        })
-        localStorage.setItem('userFavoriteItemsAmount', JSON.stringify(favoritesItems));
-        const localStorageUpdate = localdata();
-        renderUserBlock(localStorageUpdate.userName, localStorageUpdate.userAvatar, localStorageUpdate.userFavoriteItemsAmount)
+        removeToStorage(favoritesItems, idlikeBTN);
       }
-
-
     })
+
   })
+
 }

@@ -38,24 +38,24 @@ export function renderSearchResultsBlock() {
     `);
 }
 export function renderSerchResults(element) {
-    const { id, name, price, remoteness, description } = element;
+    const { id, title, price, coordinates, details, img } = element;
     renderBlock('results-list', `
     <li class="result">
     <div class="result-container">
       <div class="result-img-container">
         <div class="favorites" id="${id}"></div>
-        <img class="result-img" src="./img/result-${Math.floor(Math.random() * 2) + 1}.png" alt="">
+        <img class="result-img" src="${img}" alt="">
       </div>
       <div class="result-info">
         <div class="result-info--header">
-          <p>${name}</p>
+          <p>${title}</p>
           <p class="price">${price}&#8381;</p>
         </div>
-        <div class="result-info--map"><i class="map-icon"></i> ${remoteness}км от вас</div>
-        <div class="result-info--descr">${description}</div>
+        <div class="result-info--map"><i class="map-icon"></i> ${coordinates}км от вас</div>
+        <div class="result-info--descr">${details}</div>
         <div class="result-info--footer">
           <div>
-            <button id="${id}">Забронировать</button>
+            <button class="reserve" id="${id}">Забронировать</button>
           </div>
         </div>
       </div>

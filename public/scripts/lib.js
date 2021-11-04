@@ -19,9 +19,11 @@ export function renderToast(message, action) {
             if (action != null && action.handler != null) {
                 action.handler();
             }
-            renderToast();
         };
     }
+    setTimeout(() => {
+        clearBlockOreClouseToasts('toast-block');
+    }, 3000);
 }
 export function clearBlockOreClouseToasts(elementId) {
     const element = document.getElementById(elementId);

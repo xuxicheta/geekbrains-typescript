@@ -182,6 +182,10 @@ ul.results-list {
     background-size: 100%;
     cursor: pointer;
 }
+
+.radio {
+    width: auto;
+}
 .heart {
     display: block;
     margin-left: 5px;
@@ -328,15 +332,21 @@ span.forward {
     margin-bottom: 62px;
     width: 181px;
 }
+
+#toast-block {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 50%;
+}
+
 .info-block {
     width: 560px;
     text-align: center;
-    position: fixed;
-    z-index: 1;
     background: rgb(255 255 255 / 90%);
     padding: 24px 0;
-    top: 0;
-    left: 50%;
     transform: translate(-50%, 0);
 }
 .info-block.success {

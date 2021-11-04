@@ -38,9 +38,12 @@ export function renderToast(message?: RenderMessage, action?: RenderAction): voi
       if (action != null && action.handler != null) {
         action.handler()
       }
-      renderToast()
     }
   }
+
+  setTimeout(() => {
+    clearBlockOreClouseToasts('toast-block')
+  }, 3000)
 }
 
 export function clearBlockOreClouseToasts(elementId: string): void {

@@ -4,7 +4,7 @@ export function renderUserBlock(userName, avatarSrc, favoriteItemsAmount) {
     const favoritesCaption = favoriteItemsAmount
         ? `Избранных: ${favoriteItemsAmount.length}`
         : 'ничего нет';
-    const heartIcon = favoriteItemsAmount.length
+    const heartIcon = favoriteItemsAmount
         ? 'heart'
         : 'heart2';
     renderBlock('user-block', `
