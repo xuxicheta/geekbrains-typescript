@@ -1,0 +1,14 @@
+# Dependency directories
+node_modules/
+
+# TypeScript v1 declaration files
+typings/
+
+# Optional eslint cache
+.eslintcache
+
+# macOS
+.DS_Store
+
+# Visual Studio Code #
+.vscode/*
