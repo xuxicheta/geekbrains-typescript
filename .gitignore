@@ -1,2 +1,14 @@
-node_modules
+<<<<<<< HEAD
+# Dependency directories
+node_modules/
+
+# Optional eslint cache
+.eslintcache
+
+# macOS
+.DS_Store
+
+# Visual Studio Code #
+.vscode/*
+
 public/scripts
