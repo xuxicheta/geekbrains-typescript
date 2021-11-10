@@ -1,6 +1,8 @@
 export function renderBlock (elementId: string, html: string): void {
   const element = document.getElementById(elementId)
-  element.innerHTML = html
+  if (element != null) {
+    element.innerHTML = html
+  }
 }
 
 export interface RenderMessage {
